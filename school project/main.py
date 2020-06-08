@@ -146,7 +146,8 @@ def Attendance():
     pass
 def Parents_info():
     pass
-
+def reportcard():
+    pass
  
 def login():
     global c
@@ -281,6 +282,11 @@ def login():
         menu.add_cascade(label = "parents_info",menu = parents_info)
         parents_info.add_command(label = "Parent Info",command = Parents_info)
         parents_info.add_separator()
+        
+        Report_card = Menu(menu)
+        menu.add_cascade(label = "Report_card",menu = Report_card)
+        Report_card.add_command(label = "Repor-Card Maker",command = reportcard)
+        report_card.add_separator()
         ##############
         Quit = Menu(menu)
         menu.add_cascade(label = "quit",menu = Quit)
