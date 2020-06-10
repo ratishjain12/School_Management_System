@@ -1,4 +1,4 @@
-import sqlite3
+import mysql.connector
 import matplotlib as plt
 from tkinter import *
 import tkinter.font as font
@@ -10,9 +10,11 @@ root.resizable(0,0)
 
 
 #-----Data-Base-Integration----#
-conn = sqlite3.connect("student-data")
-co = conn.cursor()
-co.execute("""CREATE TABLE IF NOT EXISTS stdata(
+db = mysql.connector.connect(user='root', password='zanzmera456')
+cursor = db.cursor()
+cursor.execute("CREATE DATABASE IF NOT EXISTS school")
+cursor.execute("USE school")
+cursor.execute("""CREATE TABLE IF NOT EXISTS stdata(
         id int primary key,
         firstname text,
         lastname text,
@@ -20,7 +22,7 @@ co.execute("""CREATE TABLE IF NOT EXISTS stdata(
         class text)""")
 
 
-conn.commit()
+db.commit()
 #conn.close()
 #------Functions-----#
 
@@ -30,140 +32,115 @@ def home():
 
 
 def add():
-    global b
-    conn = sqlite3.connect("student-data")
-    ids = stid_ent.get()
-    idsi = int(ids)
+    global db, b, cursor
+    ids = int(stid_ent.get())
     firstname  = name_ent.get()
     lastname = name2_ent.get()
-    rollno = rno_ent.get()
-    rno = int(rollno)
+    rollno = int(rno_ent.get())
     sclass = clicked.get()
-    sql = "INSERT INTO stdata(id,firstname,lastname,rollno,class)VALUES(?,?,?,?,?)"
-    var = (idsi,firstname,lastname,rno,sclass)
-    co = conn.cursor()
-    co.execute(sql,var)
+    command = "INSERT INTO stdata VALUES(%s, '%s', '%s', %s, '%s')"%(ids, firstname, lastname, rollno, sclass)
+    cursor.execute(command)
     ids = stid_ent.delete(0,END)
     firstname  = name_ent.delete(0,END)
     lastname = name2_ent.delete(0,END)
     rollno = rno_ent.delete(0,END)
     lst.delete(0,END)
-    co.execute("SELECT * FROM stdata")
-    b = co.fetchall()
-        
+    cursor.execute("SELECT * FROM stdata")
+    b = cursor.fetchall()
+
     for i in b:
         lst.insert(END,i)
-    
-    conn.commit()
-    conn.close()
-    
+
+    db.commit()
+    db.close()
+
 def delete():
+    global db
     clicked_items = lst.curselection()
     for i in clicked_items:
         print(i)
         lst.delete(i)
-    conn = sqlite3.connect("student-data")
-    co = conn.cursor()
-    conn.commit()
+    cursor = db.commit()
+    db.commit()
 
 def search():
-  try:
-     if searches.get() == "Id":
-        conn = sqlite3.connect("student-data")
-        co = conn.cursor()
-        lst.delete(0,END)
-        cs = search_ent.get()
-        "SELECT *  FROM stdata where id = Id"
-        co.execute("SELECT *  FROM stdata where id = ?",(cs,))
-        data = co.fetchall()
-        
-        for i in data:
-            lst.insert(END,i)
-        
-        conn.commit()
-        
-     if searches.get() == "Roll No":
-        conn = sqlite3.connect("student-data")
-        co = conn.cursor()
-        lst.delete(0,END)
-        cs = search_ent.get()
-        "SELECT *  FROM stdata where id = Id"
-        co.execute("SELECT *  FROM stdata where rollno = ?",(cs,))
-        data = co.fetchall()
-        
-        for i in data:
-            lst.insert(END,i)
-        
-        conn.commit()
+    global db, cursor
+    try:
+        if searches.get() == "Id":
+            lst.delete(0,END)
+            cs = search_ent.get()
+            "SELECT *  FROM stdata where id = Id"
+            cursor.execute("SELECT *  FROM stdata where id = ?",(cs,))
+            data = cursor.fetchall()
 
-     if searches.get() == "class":
-        conn = sqlite3.connect("student-data")
-        co = conn.cursor()
-        lst.delete(0,END)
-        cs = search_ent.get()
-        "SELECT *  FROM stdata where id = Id"
-        co.execute("SELECT *  FROM stdata where class = ?",(cs,))
-        data = co.fetchall()
-        
-        for i in data:
-            lst.insert(END,i)
-        
-        conn.commit()
+            for i in data:
+                lst.insert(END,i)
 
-     if searches.get() == "firstname":
-        conn = sqlite3.connect("student-data")
-        co = conn.cursor()
-        lst.delete(0,END)
-        cs = search_ent.get()
-        "SELECT *  FROM stdata where id = Id"
-        co.execute("SELECT *  FROM stdata where firstname = ?",(cs,))
-        data = co.fetchall()
-        
-        for i in data:
-            lst.insert(END,i)
-            
-     if searches.get() == "all":
-         conn = sqlite3.connect("student-data")
-         co = conn.cursor()
-         lst.delete(0,END)
-         co.execute("SELECT *  FROM stdata")
-         d = co.fetchall()
-        
-         for i in d: 
-             lst.insert(END,i)
-        
-         
-         conn.commit()
+            db.commit()
 
-      
-  except:
-     print("Invalid Search!")
-    
-def Home():    
+        if searches.get() == "Roll No":
+            lst.delete(0,END)
+            cs = search_ent.get()
+            "SELECT *  FROM stdata where id = Id"
+            cursor.execute("SELECT *  FROM stdata where rollno = ?",(cs,))
+            data = cursor.fetchall()
+
+            for i in data:
+                lst.insert(END,i)
+
+            db.commit()
+
+        if searches.get() == "class":
+            lst.delete(0,END)
+            cs = search_ent.get()
+            "SELECT *  FROM stdata where id = Id"
+            cursor.execute("SELECT *  FROM stdata where class = ?",(cs,))
+            data = cursor.fetchall()
+
+            for i in data:
+                lst.insert(END,i)
+
+            db.commit()
+
+        if searches.get() == "firstname":
+            lst.delete(0,END)
+            cs = search_ent.get()
+            "SELECT *  FROM stdata where id = Id"
+            cursor.execute("SELECT *  FROM stdata where firstname = ?",(cs,))
+            data = cursor.fetchall()
+
+            for i in data:
+                lst.insert(END,i)
+
+        if searches.get() == "all":
+            lst.delete(0,END)
+            cursor.execute("SELECT *  FROM stdata")
+            d = cursor.fetchall()
+
+            for i in d:
+                lst.insert(END,i)
+
+
+            db.commit()
+
+    except:
+        print("Invalid Search!")
+
+def Home():
     pass
 
 def Attendance():
     pass
 def Parents_info():
     pass
-def reportcard():
-    pass
- 
+
+
 def login():
-    global c
-    global stid_ent
-    global name_ent
-    global name2_ent
-    global rno_ent
-    global clicked
-    global search_ent
-    global lst
-    global search
-    global searches
+    global db, cursor, searches, search, lst, clicked, rno_ent, name_ent, name2_ent, stid_ent, c
     u = user_ent.get()
     p = user_pass.get()
     if u == "admin" and p == "1234":
-        
+
         messagebox.showinfo("Student Admin","YOU SUCCESSFULLY LOGGED IN!!")
         root.withdraw()
         #---New-Window------#
@@ -186,7 +163,7 @@ def login():
 
         stid_ent = Entry(admin_f1)
         stid_ent.grid(row = 0,column = 1,padx = 3,pady = 5)
-        
+
         name_lbl = Label(admin_f1,text = "Enter Student FirstName:",font = "Helvetica 20 bold")
         name_lbl.grid(pady = 30)
 
@@ -236,7 +213,7 @@ def login():
         search_lbl = Label(branched_f1,text = "Search Here:",font = "Helvetica 20 bold")
         search_lbl.grid(row=0,column = 2)
 
-        
+
 
         search_ent = Entry(branched_f1)
         search_ent.grid(row = 0, column = 3)
@@ -246,26 +223,25 @@ def login():
 
         delete_btn = Button(branched_f1,text = "Delete",font = "Helvetica 14 bold",command = delete)
         delete_btn.grid(row = 0,column = 5)
-        
-        
+
+
         branched_f2 = Frame(admin_f2)
         branched_f2.grid()
 
         lst = Listbox(branched_f2,width  = 70,height = 28)
         lst.grid(row = 3)
-        
-        conn = sqlite3.connect("student-data")
-        co = conn.cursor()
-        co.execute("SELECT * FROM stdata")
-        b = co.fetchall()
-        
+
+
+        cursor.execute("SELECT * FROM stdata")
+        b = cursor.fetchall()
+
         for i in b:
             lst.insert(END,i)
 
-        
-    
 
-        conn.commit()
+
+
+        db.commit()
         #menu
         menu = Menu(c)
         file_menu = Menu(menu)
@@ -282,11 +258,6 @@ def login():
         menu.add_cascade(label = "parents_info",menu = parents_info)
         parents_info.add_command(label = "Parent Info",command = Parents_info)
         parents_info.add_separator()
-        
-        Report_card = Menu(menu)
-        menu.add_cascade(label = "Report_card",menu = Report_card)
-        Report_card.add_command(label = "Repor-Card Maker",command = reportcard)
-        report_card.add_separator()
         ##############
         Quit = Menu(menu)
         menu.add_cascade(label = "quit",menu = Quit)
@@ -296,8 +267,8 @@ def login():
     #designing endede#
     else:
         messagebox.showinfo("Student Admin","Alert: Invalid Username or Password")
-    
-    
+
+
 
 #----Functions-End--#
 
@@ -324,6 +295,3 @@ log_btn = Button(main_f1,width = 10,height = 2,text = "login",font = "Helvetica 
 log_btn.grid(row = 2,column=1)
 
 root.mainloop()
-
-
-
