@@ -10,7 +10,7 @@ root.resizable(0,0)
 
 
 #-----Data-Base-Integration----#
-db = mysql.connector.connect(user='root', password='zanzmera456')
+db = mysql.connector.connect(user='root', password='1234')
 cursor = db.cursor()
 cursor.execute("CREATE DATABASE IF NOT EXISTS school")
 cursor.execute("USE school")
