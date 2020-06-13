@@ -12,7 +12,9 @@ def quit_function():
     repsonse = messagebox.askquestion("Confirmation","Are you sure you want to quit?",icon = "warning")
     if repsonse == "yes":
         root.destroy()
-
+def Reportcard():
+    root.withdraw()
+    from reportcard import main_window
 
 frame = Frame(root,bg = "yellow")
 frame.place(relx = 0.35,rely = 0.32)
@@ -25,6 +27,9 @@ Fee_status.grid(pady = 5)
 
 Gradebook = Button(frame,text = "Grade-book",font = "Helvetica 20 bold",width = 20)
 Gradebook.grid(pady = 5)
+
+reportcard = Button(frame,text = "Report-Card Generator",font = "Helvetica 20 bold",width = 20,command  = Reportcard)
+reportcard.grid(pady = 5)
 
 Attendance = Button(frame,text = "Attendance",font = "Helvetica 20 bold",width = 20)
 Attendance.grid(pady = 5)
