@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
-main_window = Tk()
+main_window = Toplevel()
 main_window.geometry("800x600")
 main_window.resizable(0,0)
 main_window.title("Reportcard - generator")
