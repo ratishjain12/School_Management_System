@@ -22,9 +22,9 @@ def view():
 #---- WIDGETS -----
 registerButton = Button(studentInfoGui, text = 'Register', width = 10, height = 2, command = register)
 viewButton = Button(studentInfoGui, text = 'View', width = 10, height = 2, command = view)
-registerPhoto = PhotoImage(file = 'images\\registerIcon.png')
+registerPhoto = PhotoImage(file = 'images/registerIcon.png')
 registerLabel = Label(image = registerPhoto)
-viewPhoto = PhotoImage(file = 'images\\viewIcon.png')
+viewPhoto = PhotoImage(file = 'images/viewIcon.png')
 viewLabel = Label(image = viewPhoto)
 
 
