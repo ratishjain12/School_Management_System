@@ -25,11 +25,18 @@ def Fee_status():
     root.withdraw()
     from fee_status import fee_window
 
+def Student_info():
+    root.withdraw()
+    from student_info import studentInfoGui
+
+def attendance():
+    root.withdraw()
+    from attendence import attendenceGui
 
 frame = Frame(root,bg = "yellow")
 frame.place(relx = 0.35,rely = 0.32)
 
-Student_info = Button(frame,text = "Student-Info",font = "Helvetica 20 bold",width=20)
+Student_info = Button(frame,text = "Student-Info",font = "Helvetica 20 bold",width=20,command=Student_info)
 Student_info.grid(pady = 5)
 
 Fee_status = Button(frame,text = "Fee - Status",font = "Helvetica 20 bold",width =20,command=Fee_status)
@@ -41,7 +48,7 @@ Gradebook.grid(pady = 5)
 reportcard = Button(frame,text = "Report-Card Generator",font = "Helvetica 20 bold",width = 20,command  = Reportcard)
 reportcard.grid(pady = 5)
 
-Attendance = Button(frame,text = "Attendance",font = "Helvetica 20 bold",width = 20)
+Attendance = Button(frame,text = "Attendance",font = "Helvetica 20 bold",width = 20,command=attendance)
 Attendance.grid(pady = 5)
 
 
