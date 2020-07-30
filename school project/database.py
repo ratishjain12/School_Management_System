@@ -32,7 +32,7 @@ cursor.execute("""CREATE TABLE IF NOT EXISTS feeStatus(
                     totalFees int)""")
 
 cursor.execute("""CREATE TABLE IF NOT EXISTS attendence(
-        studentId int primary key,
+        studentId int,
         year int,
         january int,
         february int,
