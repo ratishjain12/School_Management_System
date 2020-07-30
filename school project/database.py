@@ -31,5 +31,22 @@ cursor.execute("""CREATE TABLE IF NOT EXISTS feeStatus(
                     status text,
                     totalFees int)""")
 
+cursor.execute("""CREATE TABLE IF NOT EXISTS attendence(
+        studentId int primary key,
+        year int,
+        january int,
+        february int,
+        march int,
+        april int,
+        may int,
+        june int,
+        july int,
+        august int,
+        september int,
+        october int,
+        november int,
+        december int
+        )""")
+
 
 db.commit()
