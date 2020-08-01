@@ -87,13 +87,12 @@ def registerGuiRun():
 
         dob = dobDate + '-' + dobMonth + '-' + dobYear
         dob = datetime.datetime.strptime(dob, '%d-%B-%Y')
-    
+        '''
         cursor.execute('use school')
         cursor.execute("insert into studentdata values(%s, '%s', '%s', %s, '%s', '%s', '%s', '%s', '%s')"%(studentId, firstname, lastname, rollno, std, section, gender, address, dob))
         cursor.execute("insert into parentinfo values(%s, '%s', %s, '%s', '%s', %s, '%s')"%(studentId, fatherName, fatherNo, fatherProfession, motherName, motherNo, motherProfession))
-        cursor.execute("insert into feeStatus values(%s,'pending',100000)"%(studentId))
         db.commit()
-        
+        '''
         messagebox.showinfo('Student Registration', 'Data successfully registered!')
 
         firstnameEntry.delete(0, END)
