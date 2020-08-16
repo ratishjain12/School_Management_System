@@ -42,8 +42,6 @@ Student_info.grid(pady = 5)
 Fee_status = Button(frame,text = "Fee - Status",font = "Helvetica 20 bold",width =20,command=Fee_status)
 Fee_status.grid(pady = 5)
 
-Gradebook = Button(frame,text = "Grade-book",font = "Helvetica 20 bold",width = 20)
-Gradebook.grid(pady = 5)
 
 reportcard = Button(frame,text = "Report-Card Generator",font = "Helvetica 20 bold",width = 20,command  = Reportcard)
 reportcard.grid(pady = 5)
