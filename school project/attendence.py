@@ -18,20 +18,18 @@ def view():
     from attendence_view import viewGuiRun
     viewGuiRun()
 
-def back():
-    studentInfoGui.withdraw()
-    from menu import root
-        
+
+
+    
 
 #---- WIDGETS -----
 registerButton = Button(attendenceGui, text = 'Register', width = 10, height = 2, command = register)
 viewButton = Button(attendenceGui, text = 'View', width = 10, height = 2, command = view)
 registerPhoto = PhotoImage(file = 'images/registerIcon.png')
-registerLabel = Label(image = registerPhoto)
+registerLabel = Label(attendenceGui,image = registerPhoto)
 viewPhoto = PhotoImage(file = 'images/viewIcon.png')
-viewLabel = Label(image = viewPhoto)
-back_button = Button(studentInfoGui,text = 'BACK',width=10,height=2,command=back,font='Sans-serif 15 bold')
-back_button.place(relx = 0.03)
+viewLabel = Label(attendenceGui,image = viewPhoto)
+
 
 
 #----- PLACING WIDGETS -----

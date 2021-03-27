@@ -41,9 +41,7 @@ def check():
 def back():
     check_individual_window.withdraw()
     fee_window.deiconify()
-def back0():
-    fee_window.withdraw()
-    from menu import root
+
 def back1():
     pending_window.withdraw()
     fee_window.deiconify()
@@ -135,11 +133,11 @@ def payment():
     if student_id == '' or student_name == '':
         messagebox.showwarning('Error','please fill all details')
     else:
-        cursor.execute('select firstname from studentdata where firstname="%s" and studentId="%s"'%(student_name,student_id))
+        cursor.execute("select firstname from studentdata where firstname = '%s' and studentId ='%s'"%(student_name,student_id))
         data = cursor.fetchall()
         print(data)
         if data !=[]:
-            cursor.execute("update feeStatus set status = 'paid' where studentId = %s"%(student_id))
+            cursor.execute("update feeStatus set status = 'paid' where studentId = '%s'"%(student_id))
             result = Label(payment_window,text = "Payment successfull!!",height=2,foreground="green",font='Helvetica 20 bold')
             result.place(relx = 0.1,rely = 0.9)
             result.after(3000,result.destroy)
@@ -196,8 +194,6 @@ Pending.grid(pady=4)
 make_payment = Button(frame,text = 'Make Payment',width=20, font = 'Helvetica 20 bold',command= make_payment)
 make_payment.grid(pady=4)
 
-back_button = Button(fee_window,text = 'BACK',width=10,height=2,command=back0,font='Sans-serif 15 bold')
-back_button.place(relx = 0.03)
 
 
 fee_window.mainloop()

@@ -10,9 +10,7 @@ main_window.resizable(0,0)
 main_window.title("Reportcard - generator")
 main_window.config(bg = "grey")
 #####Functions########
-def back0():
-    main_window.withdraw()
-    from menu import root
+
     
 def quit_function():
     repsonse = messagebox.askquestion("Confirmation","Are you sure you want to quit?",icon = "warning")
@@ -622,8 +620,7 @@ classes.grid(pady = 5)
 window_quit = Button(frame,text = "Quit",font = "Helvetica 20 bold",width = 40 ,command = quit_function)
 window_quit.grid(pady = 5)
 
-Back = Button(main_window   ,text = "Back",font = "Helvetica 20 bold",width = 20 ,command = back0)
-Back.grid(pady = 5)
+
 
 ##########################################
 main_window.mainloop()

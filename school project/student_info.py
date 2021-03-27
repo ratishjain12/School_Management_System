@@ -2,7 +2,7 @@ from tkinter import *
 
 
 #----- GUI -----
-studentInfoGui = Tk()
+studentInfoGui = Toplevel()
 studentInfoGui.geometry('500x500')
 studentInfoGui.resizable(0,0)
 studentInfoGui.title('Student Information')
@@ -19,13 +19,16 @@ def view():
     viewGuiRun()
 
 
+    
+
+
 #---- WIDGETS -----
 registerButton = Button(studentInfoGui, text = 'Register', width = 10, height = 2, command = register)
 viewButton = Button(studentInfoGui, text = 'View', width = 10, height = 2, command = view)
 registerPhoto = PhotoImage(file = 'images/registerIcon.png')
-registerLabel = Label(image = registerPhoto)
+registerLabel = Label(studentInfoGui,image = registerPhoto)
 viewPhoto = PhotoImage(file = 'images/viewIcon.png')
-viewLabel = Label(image = viewPhoto)
+viewLabel = Label(studentInfoGui,image = viewPhoto)
 
 
 #----- PLACING WIDGETS -----
