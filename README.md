@@ -1,1 +1,1 @@
-# School_project
+# School Management System
